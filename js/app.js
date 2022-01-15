@@ -43,9 +43,10 @@ function consultarAPI(ciudad, pais) {
       if (clima.cod === "404") {
         mostrarAlerta('Ciudad no encontrada, verifique que la ciudad sea la correcta.' , 'error');
         enviarBtn.textContent = `Obtener Clima`;
+        formulario.reset();
         return;
       }
-
+      console.log(clima.weather[0].icon);
       // Muestra el clima en el HTML
       mostrarClima(clima);
       enviarBtn.textContent = `Obtener Clima`;
@@ -54,6 +55,8 @@ function consultarAPI(ciudad, pais) {
 
     .catch((err) => {
       mostrarAlerta('Hubo un problema al realizar la consulta, verifique los datos ingresados', 'error');
+      enviarBtn.textContent = `Obtener Clima`;
+      formulario.reset();
     });
 }
 
@@ -77,7 +80,10 @@ function mostrarClima(clima){
 
   const actual = document.createElement('p');
   actual.innerHTML = `${temperatura} &#8451;`;
-  actual.classList.add('font-bold', 'text-6xl');
+  actual.classList.add('font-bold', 'text-6xl','text-center', 'flex', 'justify-center', 'items-center');
+  
+  const icon = document.createElement('img');
+  icon.src = `http://openweathermap.org/img/w/${clima.weather[0].icon}.png`;
 
   const tempMaxima = document.createElement('p');
   tempMaxima.innerHTML = `Max: ${max} &#8451;`;
@@ -91,6 +97,7 @@ function mostrarClima(clima){
   resultadoDiv.classList.add('text-center', 'text-white');
   resultadoDiv.appendChild(nombreCiudad);
   resultadoDiv.appendChild(actual);
+  actual.appendChild(icon);
   resultadoDiv.appendChild(tempMaxima);
   resultadoDiv.appendChild(tempMinima);
 
@@ -114,7 +121,6 @@ function mostrarAlerta(mensaje, tipo) {
   // selectores
   const divAlerta = document.createElement('div');
   divAlerta.classList.add('alerta');
-
   // En caso de que no haya una alerta ...
   if (!document.querySelector('.alerta')) {
     // Comprueba el tipo de alerta
@@ -174,6 +180,13 @@ function mostrarAlerta(mensaje, tipo) {
         </div>
       </div>
       `;
+      
+
+      const parrafo = document.createElement('p');
+      parrafo.textContent = 'Agrega tu ciudad y país, el resultado se mostrará aquí';
+      parrafo.classList.add('text-center', 'text-white', 'mt-6' ,'w-100');
+      resultado.appendChild(parrafo);   
+      
       container.appendChild(divAlerta);
       setTimeout(() => {
         divAlerta.remove();
