@@ -1,0 +1,49 @@
+html {
+  background: #2a2570;
+  background: -moz-linear-gradient(left, #2a2570 0%, #523994 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, #2a2570), color-stop(100%, #523994));
+  background: -webkit-linear-gradient(left, #2a2570 0%, #523994 100%);
+  background: -o-linear-gradient(left, #2a2570 0%, #523994 100%);
+  background: -ms-linear-gradient(left, #2a2570 0%, #523994 100%);
+  background: linear-gradient(to right, #2a2570 0%, #523994 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a2570', endColorstr='#523994', GradientType=1 );
+}
+
+.spinner {
+  animation: rotate 2s linear infinite;
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -25px 0 0 -25px;
+  width: 50px;
+  height: 50px;
+  
+  &.path {
+    stroke: hsl(210, 70, 75);
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+  }
+  
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
